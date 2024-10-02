@@ -12,6 +12,17 @@ else
     exit 1
 fi
 
+# Prompt user for confirmation
+echo "This script will add the alias 'git st' to expand to 'git status' in your shell profile ($PROFILE_FILE)."
+echo "Do you want to proceed? (y/n)"
+read -r RESPONSE
+
+if [ "$RESPONSE" != "y" ] && [ "$RESPONSE" != "Y" ]; then
+    echo "Installation aborted by user."
+    exit 0
+fi
+
+
 # Define the alias
 ALIAS_CMD="alias gitst='git status'"
 
