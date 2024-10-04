@@ -17,6 +17,15 @@ echo "This script will add the alias 'git st' to expand to 'git status' in your 
 echo "Do you want to proceed? (y/n)"
 read -r RESPONSE
 
+echo "Please enter your OpenAI key:"
+read open_ai_key
+
+echo "Please enter your AWS key ID:"
+read aws_key_id 
+
+echo "Please enter your AWS key secret:"
+read aws_secret
+
 if [ "$RESPONSE" != "y" ] && [ "$RESPONSE" != "Y" ]; then
     echo "Installation aborted by user."
     exit 0
