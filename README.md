@@ -14,7 +14,7 @@ CLI tool that queries local Ollama to generate Linux commands from natural langu
 
 ```bash
 ./build.sh
-./install.sh
+cp ./build/clilo/clilo /usr/local/bin/ 
 ```
 
 ## Usage
