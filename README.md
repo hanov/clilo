@@ -1,6 +1,6 @@
 # clilo
 
-CLI tool that queries local Ollama to generate Linux commands.
+CLI tool that queries local Ollama to generate Linux commands from natural language.
 
 ![Demo](demo.gif)
 
