@@ -1,56 +1,33 @@
-#!/bin/sh
+#!/bin/bash
 
-# Determine the shell profile file
-if [ -n "$ZSH_VERSION" ]; then
-    PROFILE_FILE="$HOME/.zshrc"
-elif [ -n "$BASH_VERSION" ]; then
-    PROFILE_FILE="$HOME/.bashrc"
-elif [ -f "$HOME/.profile" ]; then
-    PROFILE_FILE="$HOME/.profile"
-else
-    echo "Unsupported shell. Please add the alias manually to your shell profile."
+set -e
+
+PROJECT_NAME="clilo"
+BUILD_DIR="build"
+INSTALL_DIR="/usr/local/bin"
+
+echo "Installing $PROJECT_NAME..."
+
+if [ ! -d "$BUILD_DIR" ]; then
+    echo "Build directory not found. Please run ./build.sh first."
     exit 1
 fi
 
-# Prompt user for confirmation
-echo "This script will add the alias 'git st' to expand to 'git status' in your shell profile ($PROFILE_FILE)."
-echo "Do you want to proceed? (y/n)"
-read -r RESPONSE
+BINARY="$BUILD_DIR/$PROJECT_NAME"
 
-echo "Please enter your OpenAI key:"
-read open_ai_key
-
-echo "Please enter your AWS key ID:"
-read aws_key_id 
-
-echo "Please enter your AWS key secret:"
-read aws_secret
-
-if [ "$RESPONSE" != "y" ] && [ "$RESPONSE" != "Y" ]; then
-    echo "Installation aborted by user."
-    exit 0
+if [ ! -f "$BINARY" ]; then
+    echo "Binary not found: $BINARY"
+    echo "Please run ./build.sh first."
+    exit 1
 fi
 
+echo "Installing $BINARY to $INSTALL_DIR/$PROJECT_NAME..."
 
-# Define the alias
-ALIAS_CMD="alias gitst='git status'"
+sudo cp "$BINARY" "$INSTALL_DIR/$PROJECT_NAME"
+sudo chmod +x "$INSTALL_DIR/$PROJECT_NAME"
 
-# Check if the alias already exists
-if grep -q "$ALIAS_CMD" "$PROFILE_FILE"; then
-    echo "Alias already exists in $PROFILE_FILE"
-else
-    # Add the alias to the profile file
-    echo "$ALIAS_CMD" >> "$PROFILE_FILE"
-    echo "Alias added to $PROFILE_FILE"
-fi
-
-# Apply the changes
-if [ -n "$ZSH_VERSION" ]; then
-    source "$HOME/.zshrc"
-elif [ -n "$BASH_VERSION" ]; then
-    source "$HOME/.bashrc"
-elif [ -f "$HOME/.profile" ]; then
-    source "$HOME/.profile"
-fi
-
-echo "Installation complete. You can now use 'git st' to run 'git status'."
+echo "Installation completed successfully!"
+echo "You can now use the '$PROJECT_NAME' command from anywhere."
+echo ""
+echo "Example usage:"
+echo "  $PROJECT_NAME \"list files created from two days ago to 4 days ago\""
