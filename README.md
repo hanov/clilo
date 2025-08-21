@@ -2,6 +2,8 @@
 
 CLI tool that queries local Ollama to generate Linux commands.
 
+![Demo](demo.gif)
+
 ## Requirements
 
 - Python 3.8+
