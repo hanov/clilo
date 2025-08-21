@@ -2,6 +2,8 @@
 
 import json
 import sys
+import warnings
+warnings.filterwarnings("ignore")
 import requests
 
 def main():
@@ -35,15 +37,8 @@ def main():
         result = response.json()
         print(result["message"]["content"], end="")
         
-    except requests.exceptions.RequestException as e:
-        print(f"Error making request to Ollama: {e}", file=sys.stderr)
-        sys.exit(1)
-    except json.JSONDecodeError as e:
-        print(f"Error parsing JSON response: {e}", file=sys.stderr)
-        sys.exit(1)
-    except KeyError as e:
-        print(f"Unexpected response format: {e}", file=sys.stderr)
-        sys.exit(1)
+    except:
+        pass
 
 if __name__ == "__main__":
     main()
