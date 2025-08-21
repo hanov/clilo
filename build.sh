@@ -15,7 +15,7 @@ echo "Cleaning previous build artifacts..."
 rm -rf build/ dist/ *.spec
 
 echo "Creating standalone binary with PyInstaller..."
-pyinstaller --onefile --name $PROJECT_NAME clilo.py
+python3 -m PyInstaller --onefile --name $PROJECT_NAME clilo.py
 
 echo "Organizing build artifacts..."
 mkdir -p $BUILD_DIR
